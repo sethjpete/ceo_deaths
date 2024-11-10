@@ -1,5 +1,8 @@
-from config import API_KEY as key
-from config import ORGANIZATION as org
+from .config import API_KEY as key
+from .config import ORGANIZATION as org
+
+# hash for the secret key
+import hashlib
 
 import openai
 
@@ -21,7 +24,7 @@ class GPT:
         if cls.instance is None:
             print('Instance does not exist')
             print('Creating openai instance')
-            print('Key: ' + key)
+            print('Key (hashed): ' + hashlib.md5(key.encode()).hexdigest())
             print('Org: ' + org)
 
             openai.organization = org
@@ -31,7 +34,7 @@ class GPT:
         print('Instance exists')
         return cls.instance
     
-    def __init__(self, model_type = 'gpt-3.5-turbo', system_prompts = [], max_tokens = 100, temperature = 0.8):
+    def __init__(self, model_type = 'gpt-4o', system_prompts = [], max_tokens = 100, temperature = 0.8):
         self.model_type = model_type
         self.system_prompts = system_prompts
         self.max_tokens = max_tokens
