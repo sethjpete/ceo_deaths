@@ -60,7 +60,7 @@ class GPT:
     
     def query(self, query):
         print("Querying GPT")
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model=self.model_type,
             messages = self.conversation_history + self.system_prompts + 
             [{
@@ -76,5 +76,5 @@ class GPT:
             'content': query
         })
         
-        print('Token use: ' + str(response["usage"]["total_tokens"]))
-        return response['choices'][0]['message']['content']
+        # print('Token use: ' + str(response["usage"]["total_tokens"]))
+        return response.choices[0].message.content
